@@ -87,6 +87,10 @@ app.get('/logout', (req, res, next) => {
     })
 
 })
+app.get('/', (req, res) => {
+    res.json({ message: 'Backend is running!', status: true })
+})
+
 app.listen(process.env.PORT, () => {
     console.log(`server is running on port ${process.env.PORT}`)
 })
