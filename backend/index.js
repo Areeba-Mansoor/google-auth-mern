@@ -10,7 +10,7 @@ const app = express()
 
 app.use(cors(
     {
-        origin: 'http://localhost:5173',
+        origin: 'https://google-auth-mern-ogna.vercel.app/',
         credentials: true
     }
 ))
@@ -60,10 +60,10 @@ app.get('/auth/google',
 
 app.get('/auth/google/callback',
     passport.authenticate('google', {
-        failureRedirect: 'http://localhost:5173/'
+        failureRedirect: 'https://google-auth-mern-ogna.vercel.app/'
     }),
     (req, res) => {
-        res.redirect('http://localhost:5173/home')
+        res.redirect('https://google-auth-mern-ogna.vercel.app/home')
     }
 );
 
