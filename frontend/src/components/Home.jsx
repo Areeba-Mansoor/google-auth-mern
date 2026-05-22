@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [user, setUser] = useState({ image: "", name: "", email: "" });
+
+  const toastShown = useRef(false);
 
   useEffect(() => {
     const getInfo = async () => {
@@ -19,6 +22,11 @@ const Home = () => {
           name: result?.user?.name,
           email: result?.user?.email,
         });
+
+        if (!toastShown.current) {
+          toast.success("Login Successful");
+          toastShown.current = true;
+        }
       }
     };
 
@@ -32,33 +40,34 @@ const Home = () => {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       });
+
       const result = await response.json();
+
       if (result?.status) {
-        window.location.href = "http://localhost:5173/";
+        toast.success("Logout Successful");
+
+        setTimeout(() => {
+          window.location.href = "http://localhost:5173/";
+        }, 1000);
       }
     } catch (error) {
       console.log(error.message);
+      toast.error("Something went wrong");
     }
   };
 
- 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-sky-100 via-blue-200 to-cyan-200">
       <div className="bg-white rounded-xl shadow-xl px-10 py-12 flex flex-col items-center gap-5 w-80">
-
         <img
           src={user?.image || "https://via.placeholder.com/100"}
           alt="profile"
           className="w-20 h-20 rounded-full border-0 border-purple-100 shadow-md"
         />
 
-        <h1 className="text-2xl font-bold text-gray-800">
-          {user?.name}
-        </h1>
+        <h1 className="text-2xl font-bold text-gray-800">{user?.name}</h1>
 
-        <p className="text-gray-400 text-sm">
-          {user?.email}
-        </p>
+        <p className="text-gray-400 text-sm">{user?.email}</p>
 
         <hr className="w-full border-gray-200" />
 
@@ -68,7 +77,6 @@ const Home = () => {
         >
           Logout
         </button>
-
       </div>
     </div>
   );
