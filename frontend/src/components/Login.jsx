@@ -6,7 +6,7 @@ const App = () => {
     toast.info("Redirecting to Google...");
 
     setTimeout(() => {
-      window.location.href = "http://localhost:5000/auth/google";
+      window.location.href = "https://google-auth-alpha.vercel.app/auth/google";
     }, 300);
   };
 
