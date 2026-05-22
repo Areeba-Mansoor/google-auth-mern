@@ -10,18 +10,20 @@ const app = express()
 
 app.use(cors(
     {
-        origin: 'https://google-auth-mern-ogna.vercel.app/',
+        origin: 'https://google-auth-mern-ogna.vercel.app',
         credentials: true
     }
 ))
 
-app.use(session(
-    {
-        secret: 'secret',
-        resave: false,
-        saveUninitialized: true,
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: true,
+        sameSite: 'none'
     }
-))
+}))
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -79,7 +81,7 @@ app.get('/logout', (req, res, next) => {
         }
         req.session.destroy((error) => {
             if (error) {
-                return rres.send('error')
+                return res.send('error')
             }
         })
         res.clearCookie('connect.sid')
