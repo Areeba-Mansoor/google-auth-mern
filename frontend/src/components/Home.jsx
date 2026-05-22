@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const response = await fetch("http://localhost:5000/user/info", {
+      const response = await fetch("https://google-auth-alpha.vercel.app/user/info", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -35,7 +35,7 @@ const Home = () => {
 
   const logoutHandler = async () => {
     try {
-      const response = await fetch("http://localhost:5000/logout", {
+      const response = await fetch("https://google-auth-alpha.vercel.app/logout", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
